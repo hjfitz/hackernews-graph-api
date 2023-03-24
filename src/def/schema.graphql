@@ -1,0 +1,8 @@
+type Query {
+  developers: [Developer!]!
+}
+
+type Developer {
+  name: String!
+  stack: [String!]!
+}
