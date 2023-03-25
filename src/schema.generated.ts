@@ -9,12 +9,34 @@
 /* eslint-disable */
 
 export interface IQuery {
-    developers(): Developer[] | Promise<Developer[]>;
+    getPost(id: string): Nullable<Post> | Promise<Nullable<Post>>;
+    getUser(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
-export interface Developer {
-    name: string;
-    stack: string[];
+export interface IMutation {
+    createPost(title: string, storyUrl: string): Nullable<Post> | Promise<Nullable<Post>>;
+    createUser(username: string, password: string): Nullable<User> | Promise<Nullable<User>>;
+    createSession(username: string, password: string): Nullable<JwtContext> | Promise<Nullable<JwtContext>>;
 }
 
+export interface User {
+    id: string;
+    username: string;
+    createdAt: DateTime;
+    posts: Post[];
+}
+
+export interface Post {
+    id: string;
+    title: string;
+    storyUrl: string;
+    createdAt: DateTime;
+    createdBy?: Nullable<User>;
+}
+
+export interface JwtContext {
+    token: string;
+}
+
+export type DateTime = any;
 type Nullable<T> = T | null;

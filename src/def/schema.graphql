@@ -1,8 +1,36 @@
+scalar DateTime
+
 type Query {
-  developers: [Developer!]!
+  getPost(postId: ID!): Post
+  #getPostsForFontpage: [Post!]!
+
+  "fetches any user by ID"
+  getUser(userId: ID!): User
 }
 
-type Developer {
-  name: String!
-  stack: [String!]!
+type Mutation {
+  createPost(title: String!, storyUrl: String!, userId: String!): Post
+  createUser(username: String!, password: String!): User
+
+  "Generated a JWT for the user, assuming they exist"
+  createSession(username: String!, password: String!): JwtContext
+}
+
+type User {
+  id: ID!
+  username: String!
+  createdAt: DateTime!
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  storyUrl: String!
+  createdAt: DateTime!
+  createdBy: User
+}
+
+type JwtContext {
+  token: String!
 }
