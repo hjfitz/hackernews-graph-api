@@ -13,10 +13,11 @@ export class UsersService {
     private readonly authService: AuthService,
   ) {}
 
+  // TODO: should live in authservice or loginservice
   public async createSession(
     username: string,
     password: string,
-  ): Promise<{token: string} | null> {
+  ): Promise<{ token: string } | null> {
     const foundUser = await this.usersRepository.findOneBy({ username });
 
     if (!foundUser) return null;

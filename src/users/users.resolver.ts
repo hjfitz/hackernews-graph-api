@@ -10,8 +10,7 @@ import { UsersService } from './users.service';
 import type { User } from '../schema.generated';
 import { AuthService } from 'src/auth/auth.service';
 import { PostsService } from 'src/posts/posts.service';
-import { UseGuards } from '@nestjs/common';
-import { AuthenticationGuard } from 'src/auth/authentication.guard';
+import { UseAuthNGuard } from 'src/auth/auth.guards';
 
 @Resolver('User')
 export class UsersResolver {
@@ -21,18 +20,17 @@ export class UsersResolver {
     private readonly postsService: PostsService,
   ) {}
 
-  @Mutation()
-  @UseGuards(AuthenticationGuard)
+  @Query()
   public async createSession(
     @Args('username') username: string,
     @Args('password') password: string,
   ): Promise<{ token: string }> {
-    // fetch a user
     return await this.usersService.createSession(username, password);
   }
 
+  @UseAuthNGuard()
   @Query()
-  async getUser(@Args('id') id: string): Promise<User> {
+  async getUser(@Args('userId') id: string): Promise<User> {
     const { passHash: _, ...user } = await this.usersService.fetchUserById(id);
     return user;
   }

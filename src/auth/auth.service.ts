@@ -24,6 +24,13 @@ export class AuthService {
     }
   }
 
+  public fetchUserId(token: string): string {
+    const [, rawPayload] = token.split('.');
+    const strPayload = Buffer.from(rawPayload, 'base64').toString('utf8');
+    const payload = JSON.parse(strPayload);
+    return payload.id;
+  }
+
   public async provisionToken(user: UserEntity): Promise<{ token: string }> {
     const ourUser = { ...user };
     delete ourUser.passHash;

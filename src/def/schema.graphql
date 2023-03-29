@@ -1,19 +1,22 @@
 scalar DateTime
 
 type Query {
+  "Get a specific post to display"
   getPost(postId: ID!): Post
-  #getPostsForFontpage: [Post!]!
+
+  "Get a list of ranked posts for the homepage"
+  getPostsForFontpage: [Post!]!
 
   "fetches any user by ID"
   getUser(userId: ID!): User
-}
-
-type Mutation {
-  createPost(title: String!, storyUrl: String!, userId: String!): Post
-  createUser(username: String!, password: String!): User
 
   "Generated a JWT for the user, assuming they exist"
   createSession(username: String!, password: String!): JwtContext
+}
+
+type Mutation {
+  createPost(title: String!, storyUrl: String!): Post
+  createUser(username: String!, password: String!): User
 }
 
 type User {
@@ -30,6 +33,7 @@ type Post {
   createdAt: DateTime!
   createdBy: User
 }
+
 
 type JwtContext {
   token: String!

@@ -18,6 +18,7 @@ export class AuthorizationGuard implements CanActivate {
     if (!canAuth) return false;
 
     const { userId } = executionCtx.getArgs();
+    console.log({ canAuth });
 
     return canAuth === userId;
   }
