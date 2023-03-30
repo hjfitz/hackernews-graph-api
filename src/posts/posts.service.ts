@@ -13,6 +13,14 @@ export class PostsService {
     private readonly usersRepository: Repository<UserEntity>,
   ) {}
 
+  public findPost(postId: string): Promise<PostEntity | null> {
+    return this.postsRepository
+      .createQueryBuilder('post')
+      .innerJoinAndSelect('post.createdBy', 'createdBy')
+      .where('post.id = :postId', { postId })
+      .getOne();
+  }
+
   public async createPost(userId: string, postTitle: string, postUrl: string) {
     const foundUser = await this.usersRepository.findOneById(userId);
     const newPost = await this.postsRepository.create({

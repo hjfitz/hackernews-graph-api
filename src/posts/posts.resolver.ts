@@ -9,15 +9,12 @@ export class PostsResolver {
     private readonly postsService: PostsService,
     private readonly authService: AuthService,
   ) {}
+
   @Query()
-  getPost() {
-    return {
-      id: 'b',
-      title: 'b',
-      storyUrl: 'b',
-      createdAt: new Date(),
-      createdBy: null,
-    };
+  public async getPost(@Args('postId') id: string) {
+    const foundPost = await this.postsService.findPost(id);
+    if (!foundPost) return null;
+    return foundPost;
   }
 
   @UseAuthNGuard()

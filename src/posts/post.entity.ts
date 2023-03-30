@@ -1,3 +1,4 @@
+import { CommentEntity } from 'src/comments/comment.entity';
 import { Post } from 'src/schema.generated';
 import { UserEntity } from 'src/users/user.entity';
 import {
@@ -6,6 +7,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -24,4 +26,7 @@ export class PostEntity implements Post {
 
   @ManyToOne(() => UserEntity, (user) => user.posts)
   public createdBy: UserEntity;
+
+  @OneToMany(() => CommentEntity, (comment) => comment.createdFor)
+  public comments: CommentEntity[];
 }

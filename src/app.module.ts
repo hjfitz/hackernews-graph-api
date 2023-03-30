@@ -14,6 +14,8 @@ import { AuthService } from './auth/auth.service';
 import { UserEntity } from './users/user.entity';
 import { PostEntity } from './posts/post.entity';
 import { DateTimeResolver } from 'graphql-scalars';
+import { CommentsModule } from './comments/comments.module';
+import { CommentEntity } from './comments/comment.entity';
 
 @Module({
   imports: [
@@ -34,11 +36,12 @@ import { DateTimeResolver } from 'graphql-scalars';
       username: 'postgres',
       password: 'postgres',
       database: 'hn',
-      entities: [UserEntity, PostEntity],
+      entities: [UserEntity, PostEntity, CommentEntity],
       synchronize: true,
     }),
     PostsModule,
     UsersModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

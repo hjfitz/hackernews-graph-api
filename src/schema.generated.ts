@@ -25,6 +25,7 @@ export interface User {
     username: string;
     createdAt: DateTime;
     posts: Post[];
+    comments: Comment[];
 }
 
 export interface Post {
@@ -33,6 +34,15 @@ export interface Post {
     storyUrl: string;
     createdAt: DateTime;
     createdBy?: Nullable<User>;
+    comments: Comment[];
+}
+
+export interface Comment {
+    id: string;
+    content: string;
+    createdAt: DateTime;
+    createdBy: User;
+    createdFor: Post;
 }
 
 export interface JwtContext {
