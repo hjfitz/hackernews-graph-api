@@ -18,6 +18,7 @@ export interface IQuery {
 export interface IMutation {
     createPost(title: string, storyUrl: string): Nullable<Post> | Promise<Nullable<Post>>;
     createUser(username: string, password: string): Nullable<User> | Promise<Nullable<User>>;
+    createComment(content: string, postId: string): Nullable<Comment> | Promise<Nullable<Comment>>;
 }
 
 export interface User {
@@ -34,7 +35,7 @@ export interface Post {
     storyUrl: string;
     createdAt: DateTime;
     createdBy?: Nullable<User>;
-    comments: Comment[];
+    comments?: Nullable<Comment[]>;
 }
 
 export interface Comment {

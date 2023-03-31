@@ -16,14 +16,16 @@ export class PostsService {
   public findPost(postId: string): Promise<PostEntity | null> {
     return this.postsRepository
       .createQueryBuilder('post')
-      .innerJoinAndSelect('post.createdBy', 'createdBy')
+      .innerJoinAndSelect('post.comments', 'comments')
+      .innerJoinAndSelect('comments.createdBy', 'createdBy')
+      .innerJoinAndSelect('post.createdBy', 'postCreatedBy')
       .where('post.id = :postId', { postId })
       .getOne();
   }
 
   public async createPost(userId: string, postTitle: string, postUrl: string) {
-    const foundUser = await this.usersRepository.findOneById(userId);
-    const newPost = await this.postsRepository.create({
+    const foundUser = await this.usersRepository.findOneBy({ id: userId });
+    const newPost = this.postsRepository.create({
       storyUrl: postUrl,
       title: postTitle,
       createdBy: foundUser,

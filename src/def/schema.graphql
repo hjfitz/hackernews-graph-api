@@ -17,6 +17,7 @@ type Query {
 type Mutation {
   createPost(title: String!, storyUrl: String!): Post
   createUser(username: String!, password: String!): User
+  createComment(content: String!, postId: ID!): Comment
 }
 
 type User {
@@ -33,7 +34,7 @@ type Post {
   storyUrl: String!
   createdAt: DateTime!
   createdBy: User
-  comments: [Comment!]!
+  comments: [Comment!]
 }
 
 type Comment {
