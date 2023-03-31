@@ -3,7 +3,7 @@
 comments:
 	- make this a field resolver
 
-config and config validation
+- [x] config and config validation
 
 some frontend with next
 
