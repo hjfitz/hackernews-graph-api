@@ -1,0 +1,49 @@
+scalar DateTime
+
+type Query {
+  "Get a specific post to display"
+  getPost(postId: ID!): Post
+
+  "Get a list of ranked posts for the homepage"
+  getPostsForFontpage: [Post!]!
+
+  "fetches any user by ID"
+  getUser(userId: ID!): User
+
+  "Generated a JWT for the user, assuming they exist"
+  createSession(username: String!, password: String!): JwtContext
+}
+
+type Mutation {
+  createPost(title: String!, storyUrl: String!): Post
+  createUser(username: String!, password: String!): User
+}
+
+type User {
+  id: ID!
+  username: String!
+  createdAt: DateTime!
+  posts: [Post!]!
+  comments: [Comment!]!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  storyUrl: String!
+  createdAt: DateTime!
+  createdBy: User
+  comments: [Comment!]!
+}
+
+type Comment {
+  id: ID!
+  content: String!
+  createdAt: DateTime!
+  createdBy: User!
+  createdFor: Post!
+}
+
+type JwtContext {
+  token: String!
+}
