@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Monorepo for a basic hacker news app",
   "main": "index.js",
+  "scripts": {
+	  "start:dev": "turbo run start:dev"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/hjfitz/hackernews-graph-api.git"
@@ -15,5 +18,8 @@
   "homepage": "https://github.com/hjfitz/hackernews-graph-api#readme",
   "devDependencies": {
     "turbo": "^1.8.8"
-  }
+  },
+  "workspaces": [
+	  "apps/**"
+  ]
 }
