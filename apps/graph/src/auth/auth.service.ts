@@ -16,7 +16,7 @@ export class AuthService {
   // returns ID of the user belonging to the token
   public async verifyJwt(token: string): Promise<string | false> {
     try {
-      const decodedToken = await jsonwebtoken.verify(token, this.jwtSecret);
+      const decodedToken = jsonwebtoken.verify(token, this.jwtSecret);
       // @ts-expect-error config issue
       return decodedToken.id;
     } catch (e) {
