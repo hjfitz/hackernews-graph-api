@@ -17,10 +17,21 @@ export class PostsService {
     return this.postsRepository
       .createQueryBuilder('post')
       .innerJoinAndSelect('post.comments', 'comments')
-      .innerJoinAndSelect('comments.createdBy', 'createdBy')
       .innerJoinAndSelect('post.createdBy', 'postCreatedBy')
+      .innerJoinAndSelect('comments.createdBy', 'createdBy')
       .where('post.id = :postId', { postId })
       .getOne();
+  }
+
+  public getPostsForFrontpage() {
+    return this.postsRepository
+      .createQueryBuilder('post')
+      .innerJoinAndSelect('post.comments', 'comments')
+      .innerJoinAndSelect('post.createdBy', 'postCreatedBy')
+      .innerJoinAndSelect('comments.createdBy', 'createdBy')
+      .orderBy('post.createdAt', 'DESC')
+      .limit(25)
+      .execute();
   }
 
   public async createPost(userId: string, postTitle: string, postUrl: string) {

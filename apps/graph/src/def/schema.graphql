@@ -5,19 +5,19 @@ type Query {
   getPost(postId: ID!): Post
 
   "Get a list of ranked posts for the homepage"
-  getPostsForFontpage: [Post!]!
+  getPostsForFrontpage: [Post!]!
 
   "fetches any user by ID"
   getUser(userId: ID!): User
 
-  "Generated a JWT for the user, assuming they exist"
-  createSession(username: String!, password: String!): JwtContext
 }
 
 type Mutation {
   createPost(title: String!, storyUrl: String!): Post
   createUser(username: String!, password: String!): User
   createComment(content: String!, postId: ID!): Comment
+  "Generated a JWT for the user, assuming they exist"
+  createSession(username: String!, password: String!): JwtContext
 }
 
 type User {

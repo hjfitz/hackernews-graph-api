@@ -10,7 +10,7 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   // todo: put this on a LoginResolver
-  @Query()
+  @Mutation()
   public async createSession(
     @Args('username') username: string,
     @Args('password') password: string,

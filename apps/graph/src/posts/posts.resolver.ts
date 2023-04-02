@@ -29,4 +29,9 @@ export class PostsResolver {
     const newPost = await this.postsService.createPost(userId, title, storyUrl);
     return newPost;
   }
+
+  @Query()
+  public async getPostsForFrontpage() {
+    return this.postsService.getPostsForFrontpage();
+  }
 }
